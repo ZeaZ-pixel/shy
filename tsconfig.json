@@ -1,19 +1,22 @@
 {
   "compilerOptions": {
     "target": "ES6",
-    "module": "commonjs",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true, 
     "strict": true,
     "sourceMap": true, 
     "noImplicitAny": true, 
     "skipLibCheck": true,
-    "removeComments": true,
+    "outDir": "./build",
     "rootDirs": ["./src", "./test"],
     "baseUrl": "./src", 
+    "paths": {
+      "~/*": ["./*"]
+    }
   },
   "include": ["./src/**/*.ts", "./test/**/*.ts"],
+  "exclude": ["node_modules"],
 }

@@ -1,14 +1,16 @@
 import { Request, Response } from 'express';
-import { IRegisterUserBody } from 'core/interfaces/User/RegisterUserBody';
+import { IRegisterUserBody } from '~/core/interfaces/User/RegisterUserBody';
 
 class UserController {
   constructor() {}
 
   async register(req: Request, res: Response) {
     try {
-      const { email, password, firstName, lastName, phone } = req.body as IRegisterUserBody;
+      const { email } = req.body as IRegisterUserBody;
+      console.log(email);
+      res.status(200).json({ data: email });
     } catch (error) {
-      res.status(409).send({ message: error.message });
+      res.status(400).json({ messages: 'errro' });
     }
   }
 }
