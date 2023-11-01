@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import { IRegisterUserBody } from 'core/interfaces/User/RegisterUserBody';
+import { IRegisterUserBody } from '~/core/interfaces/User/RegisterUserBody';
 
 class UserController {
   constructor() {}
 
-  async register(req: Request, res: Response) {
+  async register(req: Request, res: Response): Promise<void> {
     try {
       const { email } = req.body as IRegisterUserBody;
       console.log(email);

@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import routes from './routes';
+import startPostgresql from './db';
 
 dotenv.config();
 const app = express();
@@ -13,6 +14,7 @@ app.use('/api', routes);
 
 export const startServer = async (): Promise<void> => {
   try {
+    await startPostgresql();
     app.listen(PORT, (): void => {
       console.log(`server started: http://localhost:${PORT}`);
     });
