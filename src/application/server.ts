@@ -11,9 +11,9 @@ app.use(cors());
 app.use(express.json());
 app.use('/api', routes);
 
-export const startServer = async () => {
+export const startServer = async (): Promise<void> => {
   try {
-    app.listen(PORT, () => {
+    app.listen(PORT, (): void => {
       console.log(`server started: http://localhost:${PORT}`);
     });
   } catch (e) {
