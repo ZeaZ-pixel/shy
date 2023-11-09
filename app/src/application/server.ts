@@ -11,7 +11,6 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 app.use('/api', routes);
-app.use('/api2', routes);
 
 export const startServer = async (): Promise<void> => {
   try {
