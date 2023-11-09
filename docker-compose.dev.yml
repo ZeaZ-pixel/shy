@@ -13,7 +13,7 @@ services:
     env_file:
       - .env
     expose:
-      - '3000'
+      - '${PORT}'
     depends_on:
       - db
 
@@ -37,7 +37,7 @@ services:
       - pgadmin
     image: nginx:latest
     ports:
-      - '8080:80'
+      - '8000:80'
     volumes:
       - ./nginx:/etc/nginx/conf.d
       - ./static:/var/www/static
@@ -52,5 +52,5 @@ services:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
     ports:
-      - '5050:80'
+      - '80:80'
     restart: always

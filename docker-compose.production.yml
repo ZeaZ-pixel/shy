@@ -13,8 +13,8 @@ services:
       - /opt/server/node_modules/
     env_file:
       - .env
-    expose:
-      - '3000'
+    ports:
+      - '${PORT}'
     depends_on:
       - db
     command: npm run start
@@ -39,7 +39,7 @@ services:
       - pgadmin
     image: nginx:latest
     ports:
-      - '8080:80'
+      - '80:80'
     volumes:
       - ./nginx:/etc/nginx/conf.d
       - ./static:/var/www/static
@@ -54,6 +54,6 @@ services:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
     ports:
-      - '5050:80'
+      - '80:80'
     restart: always
     

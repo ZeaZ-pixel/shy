@@ -1,5 +1,3 @@
-class RegisterUser {
-
-}
+class RegisterUser {}
 
 export default RegisterUser;
