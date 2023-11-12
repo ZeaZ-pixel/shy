@@ -1,15 +1,8 @@
-import { Group } from './Group.js';
-import { GroupFollower } from './GroupFollower.js';
-import { GroupMember } from './GroupMember.js';
-import { GroupMessage } from './GroupMessage.js';
-import { GroupMeta } from './GroupMeta.js';
-import { GroupPost } from './GroupPost.js';
+import { Group } from './Group';
+import { GroupFollower } from './GroupFollower';
+import { GroupMember } from './GroupMember';
+import { GroupMessage } from './GroupMessage';
+import { GroupMeta } from './GroupMeta';
+import { GroupPost } from './GroupPost';
 
-export {
-  Group,
-  GroupFollower,
-  GroupMember,
-  GroupMessage,
-  GroupMeta,
-  GroupPost,
-};
+export { Group, GroupFollower, GroupMember, GroupMessage, GroupMeta, GroupPost };

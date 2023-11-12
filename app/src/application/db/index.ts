@@ -3,14 +3,13 @@ import createModel from './models';
 
 const startPostgresql = async () => {
   try {
-    createModel();
     await sequelize.authenticate();
     if (process.env.NODE_ENV === 'dev') {
-      await sequelize.sync({ alter: true, force: true });
+      // createModel();
+      await sequelize.sync({ alter: true, force: false });
     } else {
-      await sequelize.sync({ alter: true });
+      await sequelize.sync({ alter: true, force: false });
     }
-
     console.log('DATA BASE CONNECTED');
   } catch (e) {
     console.log('DATA BASE ERROR', e);

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { IRegisterUserBody } from '~/core/interfaces/User/RegisterUserBody';
+import { IRegisterUserBody } from '~/core/interfaces/user/RegisterUserBody';
 
 class UserController {
   constructor() {}

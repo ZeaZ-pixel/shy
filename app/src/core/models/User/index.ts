@@ -1,7 +1,7 @@
-import { User } from './User.js';
-import { UserFollower } from './UserFollower.js';
-import { UserFriend } from './UserFriend.js';
-import { UserMessage } from './UserMessage.js';
-import { UserPost } from './UserPost.js';
+import { User } from './User';
+import { UserFollower } from './UserFollower';
+import { UserFriend } from './UserFriend';
+import { UserMessage } from './UserMessage';
+import { UserPost } from './UserPost';
 
 export { User, UserFollower, UserFriend, UserMessage, UserPost };
