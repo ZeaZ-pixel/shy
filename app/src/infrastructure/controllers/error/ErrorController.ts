@@ -30,7 +30,7 @@ class ErrorController {
     }
   };
 
-  public onGlobalError = (err: IError, req: Request, res: Response, next: NextFunction) => {
+  public onGlobalError = (err: IError, req: Request, res: Response) => {
     err.statusCode = err.statusCode || 500;
     err.status = err.status || 'error';
 

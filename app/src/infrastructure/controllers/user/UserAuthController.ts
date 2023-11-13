@@ -1,26 +1,37 @@
 import { Request, Response } from 'express';
-import { IRegisterUserBody } from '~/core/interfaces/user/RegisterUserBody';
+import { IUserRegister } from '~/core/interfaces/user/IUserAuth';
+import UserAuthn from '~/core/useCases/user/UserAuth';
 
 class UserAuthController {
-  constructor() {}
+  constructor(private userAuth: UserAuthn) {}
 
   public async register(req: Request, res: Response): Promise<void> {
     try {
-      const { email, username, lastName, firstName, password } = req.body as IRegisterUserBody;
-      console.log(email);
-      res.status(200).json({ data: email });
+      const data = req.body as IUserRegister;
+      const user = this.userAuth.executeRegister(data);
+      res.status(200).json({ data: user });
     } catch (error) {
-      res.status(400).json({ messages: 'errro' });
+      res.status(400).json({ message: error });
     }
   }
 
   public async login(req: Request, res: Response): Promise<void> {
     try {
-      const { email, username, password } = req.body as IRegisterUserBody;
+      const { email, username, password } = req.body as IUserRegister;
       console.log(email, username, password);
       res.status(200).json({ data: email });
     } catch (error) {
-      res.status(400).json({ messages: 'errro' });
+      res.status(400).json({ message: error });
+    }
+  }
+
+  public async refresh(req: Request, res: Response) {
+    try {
+      const { refreshToken } = req.body;
+      const access = await this.userAuth.executeRefresh(refreshToken);
+      res.status(200).json(access);
+    } catch (error) {
+      res.status(400).json({ message: error });
     }
   }
 }

@@ -1,13 +1,20 @@
 import { Router } from 'express';
+import UserAuthValidators from '~/application/validators/user/UserAuthValidators';
+import { UserModel } from '~/application/db/models/UserModels';
+
+import UserAuthn from '~/core/useCases/user/UserAuth';
+import UserAuthRepository from '~/infrastructure/repositories/user/UserAuthRepository';
 import UserAuthController from '~/infrastructure/controllers/user/UserAuthController';
 import { validateRequest } from '~/infrastructure/middleware/validateRequest';
-import UserAuthValidators from '~/application/validators/user/UserAuthValidators';
 
 const router = Router();
-const userAuthnController = new UserAuthController();
 const userauthValidators = new UserAuthValidators();
+const userAuthRepository = new UserAuthRepository();
+const userAuth = new UserAuthn(userAuthRepository);
+const userAuthnController = new UserAuthController(userAuth);
 
 router.post('/registration', validateRequest(userauthValidators.registerSchema()), userAuthnController.register);
 router.post('/login', validateRequest(userauthValidators.loginSchema()), userAuthnController.login);
+router.post('/refresh', userAuthnController.refresh);
 
 export default router;
