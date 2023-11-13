@@ -17,9 +17,8 @@ class UserAuthn {
       throw new Error('Username is already in use.');
     }
 
-    const hashedPassword = await bcrypt.hash(data.password, process.env.SECRET_KEY_SALT as string);
+    const hashedPassword = await bcrypt.hash(data.password, 10);
     const newUser = new User(0, data.firstName, data.lastName, data.username, data.email, hashedPassword, '', new Date(), new Date(), '', '');
-    console.log(newUser);
     return this.userRepository.save(newUser);
   }
 

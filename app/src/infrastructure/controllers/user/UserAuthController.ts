@@ -8,7 +8,6 @@ class UserAuthController {
   public register = async (req: Request, res: Response): Promise<void> => {
     try {
       const data = req.body as IUserRegister;
-      console.log(this.userAuth);
       const user = await this.userAuth.executeRegister(data);
       res.status(200).json({ data: user });
     } catch (error) {

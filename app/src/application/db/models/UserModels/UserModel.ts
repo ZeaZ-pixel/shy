@@ -18,11 +18,11 @@ class UserModel extends Model {
 UserModel.init(
   {
     id: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true },
-    firstName: { type: DataTypes.STRING(50), allowNull: false },
-    lastName: { type: DataTypes.STRING(50), allowNull: false },
-    username: { type: DataTypes.STRING(50), allowNull: false, unique: true },
-    email: { type: DataTypes.STRING(50), allowNull: false, unique: true },
-    password: { type: DataTypes.STRING(50), allowNull: false },
+    firstName: { type: DataTypes.STRING(70), allowNull: false },
+    lastName: { type: DataTypes.STRING(70), allowNull: false },
+    username: { type: DataTypes.STRING(70), allowNull: false, unique: true },
+    email: { type: DataTypes.STRING(70), allowNull: false, unique: true },
+    password: { type: DataTypes.STRING, allowNull: false },
     registeredAt: DataTypes.DATE,
     lastLogin: DataTypes.DATE,
     intro: DataTypes.TEXT,
