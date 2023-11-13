@@ -11,7 +11,6 @@ class UserAuthController {
       const user = await this.userAuth.executeRegister(data);
       res.status(200).json({ data: user });
     } catch (error) {
-      console.log(error);
       res.status(400).json({ message: error });
     }
   };

@@ -5,8 +5,10 @@ import { User } from '~/core/models/user';
 
 class UserAuthRepository implements IUserRepository {
   constructor(private userModel: typeof UserModel) {}
-  async findByEmail(email: string): Promise<User | null> {
+  findByEmail = async (email: string): Promise<User | null> => {
+    console.log(email);
     const userRecord = await this.userModel.findOne({ where: { email } });
+    console.log(userRecord);
     if (!userRecord) return null;
     return new User(
       userRecord.id,
@@ -21,9 +23,9 @@ class UserAuthRepository implements IUserRepository {
       userRecord.intro,
       userRecord.profile,
     );
-  }
+  };
 
-  async findByUsername(username: string): Promise<User | null> {
+  findByUsername = async (username: string): Promise<User | null> => {
     const userRecord = await this.userModel.findOne({ where: { username } });
     if (!userRecord) return null;
     return new User(
@@ -39,9 +41,9 @@ class UserAuthRepository implements IUserRepository {
       userRecord.intro,
       userRecord.profile,
     );
-  }
+  };
 
-  async findByUsernameOrEmail(usernameOrEmail: string): Promise<User | null> {
+  findByUsernameOrEmail = async (usernameOrEmail: string): Promise<User | null> => {
     const userRecord = await this.userModel.findOne({
       where: {
         [Op.or]: [{ email: usernameOrEmail }, { username: usernameOrEmail }],
@@ -61,9 +63,9 @@ class UserAuthRepository implements IUserRepository {
       userRecord.intro,
       userRecord.profile,
     );
-  }
+  };
 
-  async save(user: User): Promise<User> {
+  save = async (user: User): Promise<User> => {
     const savedUser = await UserModel.create({
       firstName: user.firstName,
       lastName: user.lastName,
@@ -78,13 +80,13 @@ class UserAuthRepository implements IUserRepository {
     });
     user.id = savedUser.id;
     return user;
-  }
+  };
 
-  async setRefreshToken(userId: number, token: string): Promise<void> {
+  setRefreshToken = async (userId: number, token: string): Promise<void> => {
     await UserModel.update({ refreshToken: token }, { where: { id: userId } });
-  }
+  };
 
-  async getUserByRefreshToken(token: string): Promise<User | null> {
+  getUserByRefreshToken = async (token: string): Promise<User | null> => {
     const userRecord = await UserModel.findOne({ where: { refreshToken: token } });
     if (!userRecord) return null;
     return new User(
@@ -100,7 +102,7 @@ class UserAuthRepository implements IUserRepository {
       userRecord.intro,
       userRecord.profile,
     );
-  }
+  };
 }
 
 export default UserAuthRepository;
