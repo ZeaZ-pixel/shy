@@ -7,13 +7,19 @@ import { User } from '~/core/models/user';
 class UserAuthn {
   constructor(private userRepository: IUserRepository) {}
   async executeRegister(data: IUserRegister): Promise<User> {
-    const existingUser = await this.userRepository.findByEmail(data.email);
-    if (existingUser) {
+    const existingEmail = await this.userRepository.findByEmail(data.email);
+    if (existingEmail) {
       throw new Error('Email is already in use.');
+    }
+
+    const existingUsername = await this.userRepository.findByUsername(data.email);
+    if (existingUsername) {
+      throw new Error('Username is already in use.');
     }
 
     const hashedPassword = await bcrypt.hash(data.password, process.env.SECRET_KEY_SALT as string);
     const newUser = new User(0, data.firstName, data.lastName, data.username, data.email, hashedPassword, '', new Date(), new Date(), '', '');
+    console.log(newUser);
     return this.userRepository.save(newUser);
   }
 

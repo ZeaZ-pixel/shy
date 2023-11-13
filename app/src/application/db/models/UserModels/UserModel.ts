@@ -1,7 +1,19 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../../config';
 
-class UserModel extends Model {}
+class UserModel extends Model {
+  declare id: number;
+  declare firstName: string;
+  declare lastName: string;
+  declare username: string;
+  declare phone: string;
+  declare email: string;
+  declare password: string;
+  declare registeredAt: Date;
+  declare lastLogin: Date;
+  declare intro: string;
+  declare profile: string;
+}
 
 UserModel.init(
   {
@@ -11,7 +23,7 @@ UserModel.init(
     username: { type: DataTypes.STRING(50), allowNull: false, unique: true },
     email: { type: DataTypes.STRING(50), allowNull: false, unique: true },
     password: { type: DataTypes.STRING(50), allowNull: false },
-    registrationDate: DataTypes.DATE,
+    registeredAt: DataTypes.DATE,
     lastLogin: DataTypes.DATE,
     intro: DataTypes.TEXT,
     profile: DataTypes.TEXT,

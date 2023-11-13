@@ -8,7 +8,7 @@ class UserAuthController {
   public async register(req: Request, res: Response): Promise<void> {
     try {
       const data = req.body as IUserRegister;
-      const user = this.userAuth.executeRegister(data);
+      const user = await this.userAuth.executeRegister(data);
       res.status(200).json({ data: user });
     } catch (error) {
       res.status(400).json({ message: error });

@@ -28,6 +28,11 @@ class UserAuthValidators {
         'object.xor': 'Необходимо указать только email или username, но не оба',
       });
   }
+  public refrashSchema() {
+    return Joi.object({
+      refreshToken: Joi.string().required(),
+    });
+  }
 }
 
 export default UserAuthValidators;
