@@ -5,7 +5,7 @@ const startPostgresql = async () => {
   try {
     await sequelize.authenticate();
     if (process.env.NODE_ENV === 'dev') {
-      // createModel();
+      createModel();
       await sequelize.sync({ alter: true, force: false });
     } else {
       await sequelize.sync({ alter: true, force: false });
