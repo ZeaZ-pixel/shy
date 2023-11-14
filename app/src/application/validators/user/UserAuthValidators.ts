@@ -1,7 +1,10 @@
+import { NextFunction, Request, Response } from 'express';
 import Joi from 'joi';
+import ErrorHandlingMiddleware from '~/infrastructure/utils/ErrorHandlingMiddleware';
+import { validateToken } from '~/infrastructure/utils/jwtCreator';
 
 class UserAuthValidators {
-  public registerSchema() {
+  registerSchema() {
     return Joi.object({
       email: Joi.string().email().required(),
       password: Joi.string()
@@ -15,7 +18,7 @@ class UserAuthValidators {
     });
   }
 
-  public loginSchema() {
+  loginSchema() {
     return Joi.object({
       password: Joi.string().required(),
       email: Joi.string().email(),
@@ -28,7 +31,18 @@ class UserAuthValidators {
         'object.xor': 'Необходимо указать только email или username, но не оба',
       });
   }
-  public refrashSchema() {
+
+  verifyToken(req: Request, res: Response, next: NextFunction) {
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+      throw new ErrorHandlingMiddleware('Отсутствует заголовок авторизации', 403);
+    }
+    const token = authHeader.split(' ')[1];
+    validateToken(token);
+    next();
+  }
+
+  refrashSchema() {
     return Joi.object({
       refreshToken: Joi.string().required(),
     });

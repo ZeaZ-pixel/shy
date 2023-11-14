@@ -3,5 +3,5 @@
   "ext": ".ts, .js",
   "ignore": "node_modules",
   "legacyWatch": true,
-  "exec": "npx ts-node -r tsconfig-paths/register ./src/index.ts"
+  "exec": "ts-node -r tsconfig-paths/register ./src/index.ts"
 }

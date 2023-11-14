@@ -4,10 +4,14 @@ import { IUserRegister } from '~/core/interfaces/user/IUserAuth';
 import { IUserRepository } from '~/core/interfaces/user/IUserRepository';
 import { User } from '~/core/models/user';
 import ErrorHandlingMiddleware from '~/infrastructure/utils/ErrorHandlingMiddleware';
+import { generateAccessToken, generateRefreshToken } from '~/infrastructure/utils/jwtCreator';
 
 class UserAuthn {
   constructor(private userRepository: IUserRepository) {}
-  executeRegister = async (data: IUserRegister): Promise<User> => {
+
+  executeRegister = async (
+    data: IUserRegister,
+  ): Promise<{ access: string; refresh: string; user: User }> => {
     const existingEmail = await this.userRepository.findByEmail(data.email);
     if (existingEmail) {
       throw new ErrorHandlingMiddleware('Email is already in use', 400);
@@ -31,8 +35,17 @@ class UserAuthn {
       new Date(),
       null,
       null,
+      'user',
     );
-    return this.userRepository.save(newUser);
+    const user = await this.userRepository.save(newUser);
+    const accessToken = generateAccessToken(user.id, user.role);
+    const refreshToken = generateRefreshToken(user.id, user.role);
+
+    return {
+      access: accessToken,
+      refresh: refreshToken,
+      user,
+    };
   };
 
   executeLogin = async (
@@ -44,12 +57,8 @@ class UserAuthn {
       throw new Error('Invalid credentials.');
     }
 
-    const accessToken = jwt.sign({ userId: user.id }, process.env.SECRET_KEY_ACCESS as string, {
-      expiresIn: '15m',
-    });
-    const refreshToken = jwt.sign({ userId: user.id }, process.env.SECRET_KEY_REFRESH as string, {
-      expiresIn: '7d',
-    });
+    const accessToken = generateAccessToken(user.id, user.role);
+    const refreshToken = generateRefreshToken(user.id, user.role);
 
     return { accessToken, refreshToken };
   };

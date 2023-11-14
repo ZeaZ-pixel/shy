@@ -1,5 +1,6 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../../config';
+import { userRoleType } from '~/core/interfaces/user/userTypes';
 
 class UserModel extends Model {
   declare id: number;
@@ -13,6 +14,7 @@ class UserModel extends Model {
   declare lastLogin: Date;
   declare intro: string;
   declare profile: string;
+  declare role: userRoleType;
 }
 
 UserModel.init(

@@ -1,3 +1,5 @@
+import { userRoleType } from '~/core/interfaces/user/userTypes';
+
 /* eslint-disable no-unused-vars */
 export class User {
   constructor(
@@ -12,5 +14,6 @@ export class User {
     public lastLogin: Date,
     public intro: string | null,
     public profile: string | null,
+    public role: userRoleType,
   ) {}
 }

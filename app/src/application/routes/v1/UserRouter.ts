@@ -24,6 +24,6 @@ router.post(
   validateRequest(userauthValidators.refrashSchema()),
   userAuthnController.refresh,
 );
-router.get('/', userAuthnController.getAll);
+router.get('/', userauthValidators.verifyToken, userAuthnController.getAll);
 
 export default router;

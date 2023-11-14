@@ -19,6 +19,7 @@ class UserRepository implements IUserRepository {
       userRecord.lastLogin,
       userRecord.intro,
       userRecord.profile,
+      userRecord.role,
     );
   };
 
