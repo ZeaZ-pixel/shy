@@ -22,7 +22,14 @@ UserModel.init(
     lastName: { type: DataTypes.STRING(70), allowNull: false },
     username: { type: DataTypes.STRING(70), allowNull: false, unique: true },
     email: { type: DataTypes.STRING(70), allowNull: false, unique: true },
-    password: { type: DataTypes.STRING, allowNull: false },
+    phone: { type: DataTypes.STRING(30), unique: true },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [8, 120],
+      },
+    },
     registeredAt: DataTypes.DATE,
     lastLogin: DataTypes.DATE,
     intro: DataTypes.TEXT,

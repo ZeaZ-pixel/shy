@@ -5,12 +5,12 @@ export class User {
     public firstName: string,
     public lastName: string,
     public username: string,
-    public phone: string,
+    public phone: string | null,
     public email: string,
     public password: string,
     public registeredAt: Date,
     public lastLogin: Date,
-    public intro: string,
-    public profile: string,
+    public intro: string | null,
+    public profile: string | null,
   ) {}
 }

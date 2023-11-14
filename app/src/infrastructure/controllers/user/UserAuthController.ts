@@ -5,17 +5,18 @@ import UserAuthn from '~/core/useCases/user/UserAuth';
 class UserAuthController {
   constructor(private userAuth: UserAuthn) {}
 
-  public register = async (req: Request, res: Response): Promise<void> => {
+  register = async (req: Request, res: Response): Promise<void> => {
     try {
       const data = req.body as IUserRegister;
       const user = await this.userAuth.executeRegister(data);
       res.status(200).json({ data: user });
-    } catch (error) {
-      res.status(400).json({ message: error });
+    } catch (error: any) {
+      console.log(error);
+      res.status(400).json({ message: error.message });
     }
   };
 
-  public login = async (req: Request, res: Response): Promise<void> => {
+  login = async (req: Request, res: Response): Promise<void> => {
     try {
       const { email, username, password } = req.body as IUserRegister;
       console.log(email, username, password);
@@ -25,10 +26,19 @@ class UserAuthController {
     }
   };
 
-  public refresh = async (req: Request, res: Response): Promise<void> => {
+  refresh = async (req: Request, res: Response): Promise<void> => {
     try {
       const { refreshToken } = req.body;
       const access = await this.userAuth.executeRefresh(refreshToken);
+      res.status(200).json(access);
+    } catch (error) {
+      res.status(400).json({ message: error });
+    }
+  };
+
+  getAll = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const access = await this.userAuth.getAll();
       res.status(200).json(access);
     } catch (error) {
       res.status(400).json({ message: error });

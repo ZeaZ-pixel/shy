@@ -18,7 +18,7 @@ class UserAuthn {
     }
 
     const hashedPassword = await bcrypt.hash(data.password, 10);
-    const newUser = new User(0, data.firstName, data.lastName, data.username, data.email, hashedPassword, '', new Date(), new Date(), '', '');
+    const newUser = new User(0, data.firstName, data.lastName, data.username, null, data.email, hashedPassword, new Date(), new Date(), null, null);
     return this.userRepository.save(newUser);
   };
 
@@ -42,6 +42,10 @@ class UserAuthn {
     const accessToken = jwt.sign({ userId: user.id }, process.env.SECRET_KEY_ACCESS as string, { expiresIn: '15m' });
 
     return { accessToken };
+  };
+
+  getAll = async (): Promise<User[]> => {
+    return this.userRepository.findAll();
   };
 }
 
