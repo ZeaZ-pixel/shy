@@ -19,6 +19,7 @@ app.use('/api', routes);
 app.all('*', (req: Request, res: Response, next: NextFunction) => {
   next(new ErrorHandlingMiddleware(`Can't find ${req.originalUrl} on this server`, 404));
 });
+
 app.use(errorController.onGlobalError);
 
 export const startServer = async (): Promise<void> => {

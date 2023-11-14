@@ -25,13 +25,12 @@ class ErrorController {
     } else {
       res.status(500).json({
         status: 'error',
-        message: 'Message went very wrong',
+        message: 'Server error',
       });
     }
   };
 
   public onGlobalError = (err: IError, req: Request, res: Response) => {
-    console.log(err);
     err.statusCode = err.statusCode || 500;
     err.status = err.status || 'error';
 
@@ -40,11 +39,6 @@ class ErrorController {
     } else if (process.env.NODE_ENV === 'production') {
       this._sendErrorProd(err, res, err.statusCode);
     }
-
-    res.status(err.statusCode).json({
-      status: err.status,
-      message: err.message,
-    });
   };
 }
 
