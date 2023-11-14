@@ -29,8 +29,8 @@ class ErrorController {
       });
     }
   };
-
-  public onGlobalError = (err: IError, req: Request, res: Response) => {
+  //never delete this "next" even if it is not used!
+  public onGlobalError = (err: IError, req: Request, res: Response, next: NextFunction) => {
     err.statusCode = err.statusCode || 500;
     err.status = err.status || 'error';
 

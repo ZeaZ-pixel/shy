@@ -13,9 +13,17 @@ const userRepository = new UserRepository(UserModel);
 const userAuth = new UserAuthn(userRepository);
 const userAuthnController = new UserAuthController(userAuth);
 
-router.post('/registration', validateRequest(userauthValidators.registerSchema()), userAuthnController.register);
+router.post(
+  '/registration',
+  validateRequest(userauthValidators.registerSchema()),
+  userAuthnController.register,
+);
 router.post('/login', validateRequest(userauthValidators.loginSchema()), userAuthnController.login);
-router.post('/refresh', validateRequest(userauthValidators.refrashSchema()), userAuthnController.refresh);
+router.post(
+  '/refresh',
+  validateRequest(userauthValidators.refrashSchema()),
+  userAuthnController.refresh,
+);
 router.get('/', userAuthnController.getAll);
 
 export default router;
