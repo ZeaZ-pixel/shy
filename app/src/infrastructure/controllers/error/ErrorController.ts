@@ -31,6 +31,7 @@ class ErrorController {
   };
 
   public onGlobalError = (err: IError, req: Request, res: Response) => {
+    console.log(err);
     err.statusCode = err.statusCode || 500;
     err.status = err.status || 'error';
 

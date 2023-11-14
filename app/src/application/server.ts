@@ -3,7 +3,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import routes from './routes';
 import startPostgresql from './db';
-import ErrorHandlingMiddleware from '../infrastructure/middleware/ErrorHandlingMiddleware';
+import ErrorHandlingMiddleware from '~/infrastructure/utils/ErrorHandlingMiddleware';
 import ErrorController from '~/infrastructure/controllers/error/ErrorController';
 
 dotenv.config();
@@ -13,7 +13,9 @@ const errorController = new ErrorController();
 
 app.use(cors());
 app.use(express.json());
+
 app.use('/api', routes);
+
 app.all('*', (req: Request, res: Response, next: NextFunction) => {
   next(new ErrorHandlingMiddleware(`Can't find ${req.originalUrl} on this server`, 404));
 });
