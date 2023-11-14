@@ -5,7 +5,7 @@ import { UserModel } from '~/application/db/models/UserModels';
 import UserAuthn from '~/core/useCases/user/UserAuth';
 import UserRepository from '~/infrastructure/repositories/user/UserRepository';
 import UserAuthController from '~/infrastructure/controllers/user/UserAuthController';
-import { validateRequest } from '~/infrastructure/middleware/validateRequest';
+import { validateRequest } from '~/infrastructure/utils/validateRequest';
 
 const router = Router();
 const userauthValidators = new UserAuthValidators();

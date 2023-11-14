@@ -19,11 +19,26 @@ class UserAuthn {
     }
 
     const hashedPassword = await bcrypt.hash(data.password, 10);
-    const newUser = new User(0, data.firstName, data.lastName, data.username, null, data.email, hashedPassword, new Date(), new Date(), null, null);
+    const newUser = new User(
+      0,
+      data.firstName,
+      data.lastName,
+      data.username,
+      null,
+      data.email,
+      hashedPassword,
+      new Date(),
+      new Date(),
+      null,
+      null,
+    );
     return this.userRepository.save(newUser);
   };
 
-  executeLogin = async (usernameOrEmail: string, password: string): Promise<{ accessToken: string; refreshToken: string }> => {
+  executeLogin = async (
+    usernameOrEmail: string,
+    password: string,
+  ): Promise<{ accessToken: string; refreshToken: string }> => {
     const user = await this.userRepository.findByUsernameOrEmail(usernameOrEmail);
     if (!user || !(await bcrypt.compare(password, user.password))) {
       throw new Error('Invalid credentials.');

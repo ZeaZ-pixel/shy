@@ -34,6 +34,11 @@ UserModel.init(
     lastLogin: DataTypes.DATE,
     intro: DataTypes.TEXT,
     profile: DataTypes.TEXT,
+    role: {
+      type: DataTypes.ENUM('user', 'moderator', 'admin'),
+      defaultValue: 'user',
+      allowNull: false,
+    },
   },
   { sequelize, modelName: 'user' },
 );

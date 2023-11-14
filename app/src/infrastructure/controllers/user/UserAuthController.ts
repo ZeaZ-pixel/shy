@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { IUserRegister } from '~/core/interfaces/user/IUserAuth';
 import UserAuthn from '~/core/useCases/user/UserAuth';
-import { catchAsync } from '~/infrastructure/middleware/catchAsync';
+import { catchAsync } from '~/infrastructure/utils/catchAsync';
 
 class UserAuthController {
   constructor(private userAuth: UserAuthn) {}
